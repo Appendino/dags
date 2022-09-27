@@ -38,6 +38,8 @@ def _get_pictures():
                 print(f"{image_url} appears to be an invalid URL.")
             except requests_exceptions.ConnectionError:
                 print(f"Could not connect to {image_url}.")
+            finally:
+                time.sleep(3600)
 
 
 get_pictures = PythonOperator(
