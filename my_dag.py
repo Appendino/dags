@@ -6,10 +6,10 @@ from airflow.decorators import task, dag
 def extract():
     partner_name = "buceta"
     partner_path = "/partners/buceta"
-    return {"partner_name": partner_name, "partner_path": partner_path}
+    return partner_name
 
 @task.python
-def process():
+def process(partner_name):
     print("merda")
 
 @dag(description="Dag mothgerfucker", start_date=datetime(2022, 1, 1), schedule_interval="@daily",
