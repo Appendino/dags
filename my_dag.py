@@ -15,4 +15,4 @@ def process(partner_name):
 @dag(description="Dag mothgerfucker", start_date=datetime(2022, 1, 1), schedule_interval="@daily",
     dagrun_timeout=timedelta(minutes=10), tags=["buceta", "linda"], catchup=False, max_active_runs=1)
 def my_dag():
-    extract() >> process()
+    process(extract())
