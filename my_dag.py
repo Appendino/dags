@@ -8,7 +8,7 @@ default_args = {
     "start_date": datetime(2022, 10, 1)
 }
 
-with DAG("dependency", schedule_interval="@daily", default_args=default_args, catchup=False) as dag:
+with DAG("dependency_0_0_1", schedule_interval="@daily", default_args=default_args, catchup=False) as dag:
     t1 = DummyOperator(task_id="t1")
     t2 = DummyOperator(task_id="t2")
     t3 = DummyOperator(task_id="t3")
