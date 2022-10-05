@@ -1,18 +1,21 @@
-from datetime import datetime, timedelta
-from pydoc import describe
-from airflow.decorators import task, dag
+from airflow.models import DAG
+from airflow.operators.dummy import DummyOperator
+from airflow.models.baseoperator import cross_downstream, chain
+from datetime import datetime
 
-@task.python
-def extract():
-    partner_name = "buceta"
-    partner_path = "/partners/buceta"
-    return partner_name
 
-@task.python
-def process(partner_name):
-    print("merda")
+default_args = {
+    "start_date": datetime(2022, 10, 1)
+}
 
-@dag(description="Dag mothgerfucker", start_date=datetime(2022, 1, 1), schedule_interval="@daily",
-    dagrun_timeout=timedelta(minutes=10), tags=["buceta", "linda"], catchup=False, max_active_runs=1)
-def my_dag():
-    process(extract())
+with DAG("dependency", schedule_interval="@daily", default_args=default_args, catchup=False) as dag:
+    t1 = DummyOperator(task_id="t1")
+    t2 = DummyOperator(task_id="t2")
+    t3 = DummyOperator(task_id="t3")
+    t4 = DummyOperator(task_id="t4")
+    t5 = DummyOperator(task_id="t5")
+    t6 = DummyOperator(task_id="t6")
+    t7 = DummyOperator(task_id="t7")
+
+    cross_downstream([t1, t2, t3], [t4, t5, t6])
+    [t1, t2, t3] >> t7
