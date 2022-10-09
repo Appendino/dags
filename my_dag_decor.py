@@ -5,11 +5,11 @@ from airflow.decorators import task
 
 from datetime import datetime, timedelta
 
-@task.python
+@task.python(task_id="extract_patners", multiple_outputs=True)
 def extract():
     partner_name = "netflix"
     partner_path = "/patners/netflox"
-    return partner_name
+    return {"partner_name": partner_name, "partner_path": partner_path}
 
 @task.python
 def process(partner_name):
