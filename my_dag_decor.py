@@ -4,9 +4,10 @@ from airflow.operators.python import PythonOperator
 from airflow.decorators import task
 
 from datetime import datetime, timedelta
+from typing import Dict
 
-@task.python(task_id="extract_patners", multiple_outputs=True)
-def extract():
+@task.python(task_id="extract_patners")
+def extract() -> Dict[str, str]:
     partner_name = "netflix"
     partner_path = "/patners/netflox"
     return {"partner_name": partner_name, "partner_path": partner_path}
