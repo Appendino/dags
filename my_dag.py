@@ -10,7 +10,7 @@ def _extract(ti):
     return partner_name
 
 def _process(ti):
-    partner_name = ti.xcom_pull(key="partner_name", task_ids="extract")
+    partner_name = ti.xcom_pull(task_ids="extract")
     print(partner_name)
 
 with DAG("my_dag", description="Dag da buceta", 
