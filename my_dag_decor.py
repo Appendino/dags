@@ -12,7 +12,7 @@ def extract():
     return partner_name
 
 @task.python
-def _process(partner_name):
+def process(partner_name):
     print(partner_name)
 
 with DAG("my_dag_decor", description="Dag da buceta", 
