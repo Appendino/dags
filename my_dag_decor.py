@@ -29,4 +29,5 @@ with DAG("my_dag_decor", description="Dag da buceta",
         subdag=subdag_factory("my_dag_decor", "process_tasks",
         default_args, partner_settings)
     )
-    process(partner_settings['partner_name'], partner_settings['partner_path'])
+
+    extract() >> process_tasks
