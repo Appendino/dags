@@ -7,7 +7,7 @@ from airflow.models import Variable
 
 def _extract(ti):
     partner_name = "netflix"
-    ti.xcom_push(key="partner_name", value=partner_name)
+    return partner_name
 
 def _process(ti):
     partner_name = ti.xcom_pull(key="partner_name", task_ids="extract")
