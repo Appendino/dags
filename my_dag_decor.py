@@ -9,11 +9,11 @@ from datetime import datetime, timedelta
 def extract():
     partner_name = "netflix"
     partner_path = "/patners/netflox"
-    return {"partner_name": partner_name, "partner_path": partner_path}
+    return partner_name
 
 @task.python
-def _process():
-    print("process")
+def _process(partner_name):
+    print(partner_name)
 
 with DAG("my_dag_decor", description="Dag da buceta", 
     start_date=datetime(2022, 10, 1), 
@@ -21,4 +21,4 @@ with DAG("my_dag_decor", description="Dag da buceta",
     dagrun_timeout=timedelta(minutes=10),
     tags=["buceta_louca", "xoxota"], catchup=False) as dag:
 
-    extract() >> process()
+    process(extract())
