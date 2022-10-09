@@ -15,7 +15,7 @@ def extract():
 def _process():
     print("process")
 
-with DAG("my_dag", description="Dag da buceta", 
+with DAG("my_dag_decor", description="Dag da buceta", 
     start_date=datetime(2022, 10, 1), 
     schedule_interval="@daily",
     dagrun_timeout=timedelta(minutes=10),
