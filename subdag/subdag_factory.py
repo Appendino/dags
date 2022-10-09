@@ -6,24 +6,24 @@ from airflow.operators.python import get_current_context
 @task.python
 def process_a(partner_name, partner_path):
     ti = get_current_context()['ti']
-    partner_name = ti.xcom_pull(key='partner_name', task_id='extract_partners', dag_id='my_dag_decor')
-    partner_path = ti.xcom_pull(key='partner_path', task_id='extract_partners', dag_id='my_dag_decor')
+    partner_name = ti.xcom_pull(key='partner_name', task_ids='extract_partners', dag_id='my_dag_decor')
+    partner_path = ti.xcom_pull(key='partner_path', task_ids='extract_partners', dag_id='my_dag_decor')
     print(partner_name)
     print(partner_path)
 
 @task.python
 def process_b(partner_name, partner_path):
     ti = get_current_context()['ti']
-    partner_name = ti.xcom_pull(key='partner_name', task_id='extract_partners', dag_id='my_dag_decor')
-    partner_path = ti.xcom_pull(key='partner_path', task_id='extract_partners', dag_id='my_dag_decor')
+    partner_name = ti.xcom_pull(key='partner_name', task_ids='extract_partners', dag_id='my_dag_decor')
+    partner_path = ti.xcom_pull(key='partner_path', task_ids='extract_partners', dag_id='my_dag_decor')
     print(partner_name)
     print(partner_path)
 
 @task.python
 def process_c(partner_name, partner_path):
     ti = get_current_context()['ti']
-    partner_name = ti.xcom_pull(key='partner_name', task_id='extract_partners', dag_id='my_dag_decor')
-    partner_path = ti.xcom_pull(key='partner_path', task_id='extract_partners', dag_id='my_dag_decor')
+    partner_name = ti.xcom_pull(key='partner_name', task_ids='extract_partners', dag_id='my_dag_decor')
+    partner_path = ti.xcom_pull(key='partner_path', task_ids='extract_partners', dag_id='my_dag_decor')
     print(partner_name)
     print(partner_path)
 
