@@ -8,7 +8,7 @@ with DAG("my_dag", description="Dag da buceta",
     dagrun_timeout=timedelta(minutes=10),
     tags=["buceta_louca", "xoxota"], catchup=False) as dag:
 
-    start_task = DummyOperator("start_task")
-    end_task = DummyOperator("end_task")
+    start_task = DummyOperator(task_id="start_task")
+    end_task = DummyOperator(task_id="end_task")
 
     start_task >> end_task
