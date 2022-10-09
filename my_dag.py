@@ -27,7 +27,7 @@ with DAG("my_dag", description="Dag da buceta",
     )
 
     process = PythonOperator(
-        task_id="process"
+        task_id="process",
         python_callable=_process
     )
 
