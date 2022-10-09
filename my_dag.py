@@ -1,6 +1,11 @@
 from datetime import datetime, timedelta
 from airflow.operators.dummy import DummyOperator
+from airflow.operators.python import PythonOperator
 from airflow import DAG
+from airflow.models import Variable
+
+def _extract(partner_name):
+    print(partner_name)
 
 with DAG("my_dag", description="Dag da buceta", 
     start_date=datetime(2022, 10, 1), 
@@ -11,4 +16,10 @@ with DAG("my_dag", description="Dag da buceta",
     start_task = DummyOperator(task_id="start_task")
     end_task = DummyOperator(task_id="end_task")
 
-    start_task >> end_task
+    extract = PythonOperator(
+        task_id = "extract",
+        python_callable=_extract,
+        op_args="{{ var.json.my_dag_partner.name }}"
+    )
+
+    start_task >> extract >> end_task
