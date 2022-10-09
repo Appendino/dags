@@ -13,9 +13,10 @@ def extract() -> Dict[str, str]:
     return {"partner_name": partner_name, "partner_path": partner_path}
 
 @task.python
-def process(partner_name):
+def process(partner_name, partner_path):
     print("========================================")
     print(partner_name)
+    print(partner_path)
     print("========================================")
 
 with DAG("my_dag_decor", description="Dag da buceta", 
@@ -24,4 +25,5 @@ with DAG("my_dag_decor", description="Dag da buceta",
     dagrun_timeout=timedelta(minutes=10),
     tags=["buceta_louca", "xoxota"], catchup=False) as dag:
 
-    process(extract())
+    partner_settings = extract()
+    process(partner_settings['partner_name'], partner_settings['partner_path'])
