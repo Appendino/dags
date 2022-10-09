@@ -13,7 +13,9 @@ def extract():
 
 @task.python
 def process(partner_name):
+    print("========================================")
     print(partner_name)
+    print("========================================")
 
 with DAG("my_dag_decor", description="Dag da buceta", 
     start_date=datetime(2022, 10, 1), 
