@@ -11,6 +11,7 @@ def _extract(ti):
 
 def _process(ti):
     partner_name = ti.xcom_pull(key="partner_name", task_ids="exract")
+    print(partner_name)
 
 with DAG("my_dag", description="Dag da buceta", 
     start_date=datetime(2022, 10, 1), 
