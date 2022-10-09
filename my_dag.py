@@ -5,11 +5,12 @@ from airflow.operators.python import PythonOperator
 from airflow import DAG
 from airflow.models import Variable
 
-def _extract(partner_name):
-    print(partner_name)
+def _extract(ti):
+    partner_name = "netflix"
+    ti.xcom_push(key="partner_name", value=partner_name)
 
-def _process():
-    print("process")
+def _process(ti):
+    partner_name = ti.xcom_pull(key="partner_name", task_ids="exract")
 
 with DAG("my_dag", description="Dag da buceta", 
     start_date=datetime(2022, 10, 1), 
@@ -23,7 +24,6 @@ with DAG("my_dag", description="Dag da buceta",
     extract = PythonOperator(
         task_id="extract",
         python_callable=_extract,
-        op_args="{{ var.json.my_dag_partner.name }}"
     )
 
     process = PythonOperator(
