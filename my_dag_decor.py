@@ -3,7 +3,7 @@ from airflow import DAG
 from airflow.operators.python import PythonOperator
 from airflow.decorators import task
 from airflow.operators.subdag import SubDagOperator
-from subdag import subdag_factory
+from subdag.subdag_factory import subdag_factory
 
 from datetime import datetime, timedelta
 from typing import Dict
