@@ -3,9 +3,10 @@ from airflow import DAG
 from airflow.operators.python import PythonOperator
 from airflow.decorators import task
 from airflow.operators.subdag import SubDagOperator
-
 from datetime import datetime, timedelta
 from typing import Dict
+
+from subdag_factory import subdag_factory
 
 @task.python(task_id="extract_patners")
 def extract() -> Dict[str, str]:
@@ -21,12 +22,10 @@ with DAG("my_dag_decor", description="Dag da buceta",
     dagrun_timeout=timedelta(minutes=10),
     tags=["buceta_louca", "xoxota"], catchup=False) as dag:
 
-    partner_settings = extract()
-
     process_tasks = SubDagOperator(
         task_id="process_tasks",
         subdag=subdag_factory("my_dag_decor", "process_tasks",
-        default_args, partner_settings)
+        default_args)
     )
 
     extract() >> process_tasks
