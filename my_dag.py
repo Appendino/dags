@@ -7,7 +7,8 @@ from airflow.models import Variable
 
 def _extract(ti):
     partner_name = "netflix"
-    return partner_name
+    partner_path = "/patners/netflox"
+    return {"partner_name": partner_name, "partner_path": partner_path}
 
 def _process(ti):
     partner_name = ti.xcom_pull(task_ids="extract")
