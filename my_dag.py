@@ -1,3 +1,4 @@
+from concurrent.futures import process
 from datetime import datetime, timedelta
 from airflow.operators.dummy import DummyOperator
 from airflow.operators.python import PythonOperator
@@ -6,6 +7,9 @@ from airflow.models import Variable
 
 def _extract(partner_name):
     print(partner_name)
+
+def _process():
+    print("process")
 
 with DAG("my_dag", description="Dag da buceta", 
     start_date=datetime(2022, 10, 1), 
@@ -17,9 +21,14 @@ with DAG("my_dag", description="Dag da buceta",
     end_task = DummyOperator(task_id="end_task")
 
     extract = PythonOperator(
-        task_id = "extract",
+        task_id="extract",
         python_callable=_extract,
         op_args="{{ var.json.my_dag_partner.name }}"
     )
 
-    start_task >> extract >> end_task
+    process = PythonOperator(
+        task_id="process"
+        python_callable=_process
+    )
+
+    start_task >> extract >> process >> end_task
